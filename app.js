@@ -24,7 +24,8 @@ conn.on('auth', function() {
         conn.connect();
     }).on('end', function() {
         console.log("Connection closed");
-        process.exit();
+        rconAuthenticated = false;
+        conn.connect();
     }
 );
 conn.connect();
