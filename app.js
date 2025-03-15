@@ -9,11 +9,12 @@ const RCON_PORT = 8011;
 const RCON_PASSWORD = '819VDe1x3l201';
 
 var rconAuthenticated = false;
+var messages = [];
 
 var conn = new rcon(RCON_IP, RCON_PORT, RCON_PASSWORD);
 console.log("loading...");
 conn.on('auth', function() {
-        console.log("RCON Authenticated!!");
+        console.log("RCON Authenticated successfully");
         rconAuthenticated = true;
     }).on('response', function(str) {
         console.log("Response: " + str);
@@ -26,27 +27,25 @@ conn.on('auth', function() {
 );
 conn.connect();
 
-function getRankFromData(data) {
-    for (var i = 0; i < data.shop_items.length; i++) {
-        switch (data.shop_items[i].variation_name)
-        {
-            case 'Squire': return 'donator';
-            case 'Knight': return 'knight';
-            case 'Overlord': return 'overlord';
-            default: break;
-        }
-    }
-    return '';
-}
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
 app.get("/", (req, res) => {
-    res.send("womp womp. Why is bro here? 💀");
+    res.send(messages);
 });
 
+app.use(express.json());
+app.post("/", (req, res) => {
+    messages = req.body.messages;
+    res.status(200).send("OK");
+});
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
+
+function sendAnnouncment() {
+    if (rconAuthenticated) {
+        conn.send('say ' + messages[Math.floor(Math.random() * messages.length)]);
+    }
+    console.log("Announcement sent");
+}
+sendAnnouncment();
+setInterval(sendAnnouncment, 30000);
