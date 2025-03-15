@@ -9,7 +9,7 @@ const RCON_PORT = 8011;
 const RCON_PASSWORD = '819VDe1x3l201';
 
 var rconAuthenticated = false;
-var messages = [];
+var messages = ["e", "e2", "e3"];
 
 var conn = new rcon(RCON_IP, RCON_PORT, RCON_PASSWORD);
 console.log("loading...");
