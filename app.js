@@ -31,7 +31,11 @@ conn.on('auth', function() {
 conn.connect();
 
 app.get("/", (req, res) => {
-    res.send(messages);
+    if (rconAuthenticated) {
+        conn.send('tellraw @a {"text": "' + messages[Math.floor(Math.random() * messages.length)] + '"}');
+        console.log("Announcement sent");
+    }
+    res.status(200).send("OK");
 });
 
 app.use(express.json());
@@ -44,12 +48,3 @@ app.post("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
-
-function sendAnnouncment() {
-    if (rconAuthenticated) {
-        conn.send('tellraw @a {"text": "' + messages[Math.floor(Math.random() * messages.length)] + '"}');
-        console.log("Announcement sent");
-    }
-}
-sendAnnouncment();
-setInterval(sendAnnouncment, 30000);
