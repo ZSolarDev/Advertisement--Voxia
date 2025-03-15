@@ -43,7 +43,7 @@ app.listen(PORT, () => {
 
 function sendAnnouncment() {
     if (rconAuthenticated) {
-        conn.send('tellraw @a {"text": "' + messages[Math.floor(Math.random() * messages.length)] + '}"');
+        conn.send('tellraw @a {"text": "' + messages[Math.floor(Math.random() * messages.length)] + '"}');
         console.log("Announcement sent");
     }
 }
