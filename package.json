@@ -12,6 +12,8 @@
   "dependencies": {
     "body-parser": "^1.20.3",
     "express": "^4.21.2",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
     "rcon": "^1.1.0",
     "tcp-ping": "^0.1.1"
   }

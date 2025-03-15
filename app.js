@@ -1,15 +1,12 @@
 var rcon = require('rcon/node-rcon.js');
-const express = require("express");
+const https = require('https'); // Use 'http' for non-secure requests
 
-
-const app = express();
-const PORT = process.env.PORT;
 const RCON_IP = '51.222.147.157';
 const RCON_PORT = 8011;
 const RCON_PASSWORD = '819VDe1x3l201';
 
 var rconAuthenticated = false;
-var messages = ["e", "e2", "ee3"];
+var messages = ["wow", "wowiegee", "woowowwow"];
 
 var conn = new rcon(RCON_IP, RCON_PORT, RCON_PASSWORD);
 console.log("loading...");
@@ -30,20 +27,30 @@ conn.on('auth', function() {
 );
 conn.connect();
 
-app.get("/", (req, res) => {
-    res.send(messages);
-});
+function getRecentMessages() {
+    https.get('https://announcements-voxia.onrender.com', (res) => {
+        let serverMessages = '';
+    
+        res.on('data', (chunk) => {
+            serverMessages += chunk;
+        });
+    
+        res.on('end', () => {
+            try {
+                messages = JSON.parse(serverMessages);
+                console.log(messages);
+            } catch (error) {
+                console.log('Error parsing JSON of most recent messages:', error);
+            }
+            getRecentMessages();
+        });
+    }).on('error', (err) => {
+        console.log('failed to retrieve most recent messages: ' + err.message);
+        getRecentMessages();
+    });
+}
 
-app.use(express.json());
-app.post("/", (req, res) => {
-    messages = req.body.messages;
-    console.log(messages);
-    res.status(200).send("OK");
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-});
+getRecentMessages();
 
 function sendAnnouncment() {
     if (rconAuthenticated) {
