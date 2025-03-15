@@ -48,7 +48,7 @@ function getRecentMessages() {
     });
 }
 getRecentMessages();
-setInterval(sendAnnouncment, 10000);
+setInterval(getRecentMessages, 10000);
 
 function sendAnnouncment() {
     if (rconAuthenticated) {
