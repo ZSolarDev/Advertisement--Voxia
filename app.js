@@ -20,6 +20,8 @@ conn.on('auth', function() {
         console.log("Response: " + str);
     }).on('error', function(err) {
         console.log("Error: " + err);
+        rconAuthenticated = false;
+        conn.connect();
     }).on('end', function() {
         console.log("Connection closed");
         process.exit();
