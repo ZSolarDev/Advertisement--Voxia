@@ -37,8 +37,9 @@ function getRecentMessages() {
     
         res.on('end', () => {
             try {
+                console.log('before: ' + messages);
                 messages = JSON.parse(serverMessages);
-                console.log(messages);
+                console.log('after: ' + messages);
             } catch (error) {
                 console.log('Error parsing JSON of most recent messages:', error);
             }
