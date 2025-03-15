@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.post("/", (req, res) => {
     messages = req.body.messages;
+    console.log(messages);
     res.status(200).send("OK");
 });
 
