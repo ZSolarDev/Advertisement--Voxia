@@ -44,8 +44,8 @@ app.listen(PORT, () => {
 function sendAnnouncment() {
     if (rconAuthenticated) {
         conn.send('say ' + messages[Math.floor(Math.random() * messages.length)]);
+        console.log("Announcement sent");
     }
-    console.log("Announcement sent");
 }
 sendAnnouncment();
 setInterval(sendAnnouncment, 30000);
