@@ -42,15 +42,13 @@ function getRecentMessages() {
             } catch (error) {
                 console.log('Error parsing JSON of most recent messages:', error);
             }
-            getRecentMessages();
         });
     }).on('error', (err) => {
         console.log('failed to retrieve most recent messages: ' + err.message);
-        getRecentMessages();
     });
 }
-
 getRecentMessages();
+setInterval(sendAnnouncment, 10000);
 
 function sendAnnouncment() {
     if (rconAuthenticated) {
