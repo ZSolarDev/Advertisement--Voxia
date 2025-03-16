@@ -1,3 +1,5 @@
+import MiniMessageConverter from './MiniMessageConverter.js';
+
 var rcon = require('rcon/node-rcon.js');
 const https = require('https'); // Use 'http' for non-secure requests
 
@@ -84,8 +86,9 @@ function sendAnnouncment() {
             }
             console.log("not undefined!");
         }
-        if (messages[msgID] != "")
-            conn.send('tellraw @a {"text": "' + messages[msgID] + '"}');
+        if (messages[msgID] != ""){
+            conn.send('tellraw @a ' + new MiniMessageConverter().convert(messages[msgID]));
+        }
         if (commands.length > 0) {
             sendCommandsSequentially(commands);
         }
