@@ -27,6 +27,11 @@ conn.on('auth', function() {
 );
 conn.connect();
 
+setInterval(() => {
+    require('https').get('https://announcements-voxia-main.onrender.com');
+    console.log("Pinged self to prevent Render from sleeping");
+}, 600000);
+
 function getRecentMessages() {
     https.get('https://announcements-voxia.onrender.com', (res) => {
         let serverMessages = '';
