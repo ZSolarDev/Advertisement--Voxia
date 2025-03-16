@@ -14,6 +14,7 @@ class MiniMessageConverter {
     // Process MiniMessage input and return tellraw JSON
     convert(input) {
       this.reset();
+      console.log("Converting: " + input);
       let i = 0;
       
       while (i < input.length) {
@@ -406,8 +407,11 @@ function sendAnnouncment() {
             }
             console.log("not undefined!");
         }
-        if (messages[msgID] != "")
-            conn.send('tellraw @a ' + new MiniMessageConverter().convert(messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>')));
+        if (messages[msgID] != ""){
+            console.log(messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>'));
+            let t = messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>');
+            conn.send('tellraw @a ' + new MiniMessageConverter().convert(t));
+        }
         
         if (commands.length > 0) {
             sendCommandsSequentially(commands);
