@@ -77,7 +77,7 @@ function sendAnnouncment() {
                 console.log("Sent command: " + commands[i]);
             }
         }
-        console.log("Announcement sent");
+        console.log("Announcement sent: " + messages[msgID]);
     }
 }
 sendAnnouncment();
