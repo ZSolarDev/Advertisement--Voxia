@@ -61,8 +61,9 @@ function sendCommandsSequentially(commands) {
     let i = 0;
     function sendNext() {
         if (i < commands.length) {
-            conn.send(commands[i]);
-            console.log("Sent command: " + commands[i]);
+            let cmd = commands[i].slice(7);
+            conn.send(cmd);
+            console.log("Sent command: " + cmd);
             i++;
             // Wait 200ms before sending the next command to not overload rcon
             setTimeout(sendNext, 200);
