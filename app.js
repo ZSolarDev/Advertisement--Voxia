@@ -65,12 +65,27 @@ function sendAnnouncment() {
             commands = messages[msgID+1].split("::");
         if (messages[msgID] != "")
             conn.send('tellraw @a {"text": "' + messages[msgID] + '"}');
-        if (commands.length > 0) 
+        if (commands.length > 0) {
             for (let i = 0; i < commands.length; i++) {
                 conn.send(commands[i]);
+                console.log("Sent command: " + commands[i]);
             }
+        }
         console.log("Announcement sent");
     }
 }
 sendAnnouncment();
 setInterval(sendAnnouncment, 30000);
+
+
+// Express!!!
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+    res.send("Hello, this is the announcements manager for Voxia- wait how did you get here..?");
+});
+
+app.listen(3000, () => {
+    console.log(`Server is listening on port 3000`);
+});
