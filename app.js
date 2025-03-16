@@ -10,7 +10,7 @@ app.use(express.json());
 app.post("/", (req, res) => {
     console.log(req);
     console.log(req.body);
-    messages = req.body.messages;
+    messages = req.body;
     console.log(messages);
     res.status(200).send("OK");
 });
