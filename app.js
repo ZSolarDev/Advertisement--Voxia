@@ -407,16 +407,14 @@ function sendAnnouncment() {
             }
             console.log("not undefined!");
         }
-        if (messages[msgID] != ""){
-            console.log(messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>'));
-            let t = messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>');
-            conn.send('tellraw @a ' + new MiniMessageConverter().convert(t));
-        }
+        console.log(messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>'));
+        let t = messages[msgID].replaceAll('((((((', '<').replaceAll('))))))', '>');
+        conn.send('tellraw @a ' + new MiniMessageConverter().convert(t));
         
         if (commands.length > 0) {
             sendCommandsSequentially(commands);
         }
-        console.log("Announcement sent: " + messages[msgID]);
+        console.log("Announcement sent: " + new MiniMessageConverter().convert(t));
     }
 }
 sendAnnouncment();
