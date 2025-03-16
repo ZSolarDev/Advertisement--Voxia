@@ -51,9 +51,24 @@ function getRecentMessages() {
 getRecentMessages();
 setInterval(getRecentMessages, 10000);
 
+function getRandomEven(min, max) {
+    min = Math.ceil(min / 2) * 2; // Ensure min is even
+    max = Math.floor(max / 2) * 2; // Ensure max is even
+    return Math.floor(Math.random() * ((max - min) / 2 + 1)) * 2 + min;
+}
+
 function sendAnnouncment() {
     if (rconAuthenticated) {
-        conn.send('tellraw @a {"text": "' + messages[Math.floor(Math.random() * messages.length)] + '"}');
+        let msgID = getRandomEven(0, messages.length-1);
+        let commands = [];
+        if (messages[msgID + 1] != '')
+            commands = messages[msgID+1].split("::");
+        if (messages[msgID] != "")
+            conn.send('tellraw @a {"text": "' + messages[msgID] + '"}');
+        if (commands.length > 0) 
+            for (let i = 0; i < commands.length; i++) {
+                conn.send(commands[i]);
+            }
         console.log("Announcement sent");
     }
 }
