@@ -60,9 +60,15 @@ function getRandomEven(min, max) {
 function sendAnnouncment() {
     if (rconAuthenticated) {
         let msgID = getRandomEven(0, messages.length-1);
+        console.log("Sending message ID: " + msgID);
         let commands = [];
-        if (messages[msgID + 1] != '')
-            commands = messages[msgID+1].split("::");
+        if (messages[msgID + 1] != undefined){
+            if (messages[msgID + 1] != ''){
+                commands = messages[msgID+1].split("::");
+                console.log("Commands: " + commands);
+            }
+            console.log("not undefined!");
+        }
         if (messages[msgID] != "")
             conn.send('tellraw @a {"text": "' + messages[msgID] + '"}');
         if (commands.length > 0) {
