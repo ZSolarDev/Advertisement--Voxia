@@ -1,9 +1,9 @@
 var rcon = require('rcon/node-rcon.js');
 const https = require('https'); // Use 'http' for non-secure requests
 
-const RCON_IP = '51.222.147.157';
-const RCON_PORT = 8011;
-const RCON_PASSWORD = '819VDe1x3l201';
+const RCON_IP = process.env.RCON_IP || '0.0.0.0';
+const RCON_PORT = process.env.RCON_PORT || 25575;
+const RCON_PASSWORD = process.env.RCON_PASSWORD || '';
 
 var rconAuthenticated = false;
 var messages = ["wow", "wowiegee", "woowowwow"];
