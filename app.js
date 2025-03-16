@@ -406,10 +406,9 @@ function sendAnnouncment() {
             }
             console.log("not undefined!");
         }
-        if (messages[msgID] != ""){
-            var converter = new MiniMessageConverter();
-            conn.send('tellraw @a ' + converter.convert(messages[msgID].replace('((((((', '<').replace('))))))', '>')));
-        }
+        if (messages[msgID] != "")
+            conn.send('tellraw @a ' + new MiniMessageConverter().convert(messages[msgID].replace('((((((', '<').replace('))))))', '>')));
+        
         if (commands.length > 0) {
             sendCommandsSequentially(commands);
         }
