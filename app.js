@@ -3,7 +3,7 @@ const https = require('https'); // Use 'http' for non-secure requests
 
 const RCON_IP = process.env.RCON_IP || '0.0.0.0';
 const RCON_PORT = process.env.RCON_PORT || 25575;
-const RCON_PASSWORD = process.env.RCON_PASSWORD || '';
+const RCON_PASSWORD = process.env.RCON_PASSWORD || ''; // The password has changed compared to the previous commits for obvious security reasons.
 
 var rconAuthenticated = false;
 var messages = ["wow", "wowiegee", "woowowwow"];
