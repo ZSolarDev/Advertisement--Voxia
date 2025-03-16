@@ -57,6 +57,20 @@ function getRandomEven(min, max) {
     return Math.floor(Math.random() * ((max - min) / 2 + 1)) * 2 + min;
 }
 
+function sendCommandsSequentially(commands) {
+    let i = 0;
+    function sendNext() {
+        if (i < commands.length) {
+            conn.send(commands[i]);
+            console.log("Sent command: " + commands[i]);
+            i++;
+            // Wait 200ms before sending the next command to not overload rcon
+            setTimeout(sendNext, 200);
+        }
+    }
+    sendNext();
+}
+
 function sendAnnouncment() {
     if (rconAuthenticated) {
         let msgID = getRandomEven(0, messages.length-1);
@@ -72,10 +86,7 @@ function sendAnnouncment() {
         if (messages[msgID] != "")
             conn.send('tellraw @a {"text": "' + messages[msgID] + '"}');
         if (commands.length > 0) {
-            for (let i = 0; i < commands.length; i++) {
-                conn.send(commands[i]);
-                console.log("Sent command: " + commands[i]);
-            }
+            sendCommandsSequentially(commands);
         }
         console.log("Announcement sent: " + messages[msgID]);
     }
