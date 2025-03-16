@@ -87,7 +87,7 @@ function sendAnnouncment() {
             console.log("not undefined!");
         }
         if (messages[msgID] != ""){
-            conn.send('tellraw @a ' + new MiniMessageConverter().convert(messages[msgID]));
+            conn.send('tellraw @a ' + new MiniMessageConverter().convert(messages[msgID].replace('((((((', '<').replace('))))))', '>')));
         }
         if (commands.length > 0) {
             sendCommandsSequentially(commands);
