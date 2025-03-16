@@ -1,7 +1,7 @@
 import MiniMessageConverter from './MiniMessageConverter.js';
 
-var rcon = require('rcon/node-rcon.js');
-const https = require('https'); // Use 'http' for non-secure requests
+import Rcon from 'rcon';
+import Https from 'https';
 
 const RCON_IP = process.env.RCON_IP || '0.0.0.0';
 const RCON_PORT = process.env.RCON_PORT || 25575;
@@ -10,7 +10,7 @@ const RCON_PASSWORD = process.env.RCON_PASSWORD || ''; // The password has chang
 var rconAuthenticated = false;
 var messages = ["wow", "wowiegee", "woowowwow"];
 
-var conn = new rcon(RCON_IP, RCON_PORT, RCON_PASSWORD);
+var conn = new Rcon(RCON_IP, RCON_PORT, RCON_PASSWORD);
 console.log("loading...");
 conn.on('auth', function() {
         console.log("RCON Authenticated successfully");
@@ -30,7 +30,7 @@ conn.on('auth', function() {
 conn.connect();
 
 function getRecentMessages() {
-    https.get('https://announcements-voxia.onrender.com', (res) => {
+    Https.get('https://announcements-voxia.onrender.com', (res) => {
         let serverMessages = '';
     
         res.on('data', (chunk) => {
